@@ -26,20 +26,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late String response = '';
+  final List<String> messages = [];
+  final TextEditingController messageController = TextEditingController();
+  late WatsonAssistant watsonAssistant;
+  late String sessionId;
 
   @override
   void initState() {
     super.initState();
-    sendMessageToAssistant();
+    initWatsonAssistant();
   }
 
-  Future<void> sendMessageToAssistant() async {
+  Future<void> initWatsonAssistant() async {
+    watsonAssistant = WatsonAssistant(
+      '2rNTnxGFSxwIgqH5yTfYrr5z4n_mrXR4nMSK5OvwR66l',
+      'https://api.us-south.assistant.watson.cloud.ibm.com',
+      '20874089-62d4-43ee-bccc-00c87e144130',
+    );
+
     try {
-      final String message = 'estou doente';
-      final String assistantResponse = await WatsonHttp.sendMessage(message);
+      sessionId = await watsonAssistant.createSession();
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  Future<void> sendMessage(String message) async {
+    if (message.isEmpty) return;
+    setState(() {
+      messages.add('You: $message');
+    });
+    messageController.clear();
+
+    try {
+      final response = await watsonAssistant.sendMessage(sessionId, message);
       setState(() {
-        response = assistantResponse;
+        messages.add('AIME: ${response['output']['generic'][0]['text']}');
       });
     } catch (e) {
       print('Error: $e');
@@ -52,11 +74,38 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('AIME'),
       ),
-      body: Center(
-        child: Text(
-          'Resposta da AIME: $response',
-          style: const TextStyle(fontSize: 24),
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(messages[index]),
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: messageController,
+                    decoration: const InputDecoration(
+                      hintText: 'Type your message...',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: () => sendMessage(messageController.text),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
