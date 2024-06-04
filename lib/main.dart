@@ -35,11 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> sendMessageToAssistant() async {
+    final watsonAssistant = WatsonAssistant(
+      '2rNTnxGFSxwIgqH5yTfYrr5z4n_mrXR4nMSK5OvwR66l',
+      'https://api.us-south.assistant.watson.cloud.ibm.com',
+      '20874089-62d4-43ee-bccc-00c87e144130',
+    );
+
     try {
-      final String message = 'estou doente';
-      final String assistantResponse = await WatsonHttp.sendMessage(message);
+      final sessionId = await watsonAssistant.createSession();
+      final assistantResponse = await watsonAssistant.sendMessage(sessionId, 'Hello');
       setState(() {
-        response = assistantResponse;
+        response = assistantResponse.toString();
       });
     } catch (e) {
       print('Error: $e');
@@ -54,10 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Text(
-          'Resposta da AIME: $response',
+          'Response from AIME: $response',
           style: const TextStyle(fontSize: 24),
         ),
       ),
     );
   }
 }
+
+
