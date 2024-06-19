@@ -9,7 +9,7 @@ class WatsonAssistant {
 
   WatsonAssistant(this.apiKey, this.url, this.assistantId);
 
-  Future<String> createSession() async {
+  Future<String> criarSessao() async {
     final String endpoint = '$url/v2/assistants/$assistantId/sessions?version=$version';
 
     final response = await http.post(
@@ -27,7 +27,7 @@ class WatsonAssistant {
     }
   }
 
-  Future<Map<String, dynamic>> sendMessage(String sessionId, String message) async {
+  Future<Map<String, dynamic>> enviarMensagem(String sessionId, String message) async {
     final String endpoint = '$url/v2/assistants/$assistantId/sessions/$sessionId/message?version=$version';
 
     final response = await http.post(

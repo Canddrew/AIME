@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:aime/anonimo.dart';
-import 'package:aime/login.dart';
+import 'package:aime/Telas/anonimo.dart';
+import 'package:aime/Telas/login.dart';
 
 class Home extends StatelessWidget {
   @override

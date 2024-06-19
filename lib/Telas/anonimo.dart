@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:aime/home.dart';
-import 'package:aime/chat.dart';
+import 'package:aime/Telas/home.dart';
+import 'package:aime/Telas/chat.dart';
 
 class Anonimo1 extends StatelessWidget {
   final String parametro;
@@ -31,7 +31,7 @@ class Anonimo1 extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        proxT(context, MyHomePage());  // Redireciona para o chat
+                        proxT(context, Chat());
                       },
                       child: Text('Sim'),
                       style: ElevatedButton.styleFrom(

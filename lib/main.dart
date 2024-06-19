@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aime/home.dart';
+import 'package:aime/Telas/home.dart';
 
 
 void main() {
