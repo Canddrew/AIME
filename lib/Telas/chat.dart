@@ -29,6 +29,18 @@ class _ChatState extends State<Chat> {
 
     try {
       sessionId = await assistenteWatson.criarSessao();
+      enviarMensagemInicial(); // Envia a mensagem inicial assim que a sessão é criada
+    } catch (e) {
+      print('Erro: $e');
+    }
+  }
+
+  Future<void> enviarMensagemInicial() async {
+    try {
+      final resposta = await assistenteWatson.enviarMensagem(sessionId, '');
+      setState(() {
+        mensagens.insert(0, 'AIME: ${resposta['output']['generic'][0]['text']}');
+      });
     } catch (e) {
       print('Erro: $e');
     }
@@ -54,10 +66,10 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
+      backgroundColor: Color(0xFF80EAEA),
       appBar: AppBar(
         title: const Text('AIME'),
-        backgroundColor: Colors.yellow,
+        backgroundColor: Color(0xFF80D7EA),
         foregroundColor: Colors.black87,
       ),
       body: Column(
@@ -116,3 +128,4 @@ class _ChatState extends State<Chat> {
     );
   }
 }
+
