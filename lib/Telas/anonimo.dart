@@ -10,7 +10,7 @@ class Anonimo1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF80EAEA),
+      backgroundColor: Color(0xFF6ECFFF),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -35,7 +35,7 @@ class Anonimo1 extends StatelessWidget {
                       },
                       child: Text('Sim'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: Color(0xFFEFEFF4),
                         foregroundColor: Colors.black,
                       ),
                     ),
@@ -48,7 +48,7 @@ class Anonimo1 extends StatelessWidget {
                       },
                       child: Text('Não'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: Color(0xFFEFEFF4),
                         foregroundColor: Colors.black,
                       ),
                     ),

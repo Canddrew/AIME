@@ -13,7 +13,7 @@ class Login1 extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: Color(0xFF80EAEA),
+      backgroundColor: Color(0xFF6ECFFF),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -51,7 +51,7 @@ class Login1 extends StatelessWidget {
                       },
                       child: Text('Entrar'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: Color(0xFFEFEFF4),
                         foregroundColor: Colors.black,
                       ),
                     ),
@@ -74,7 +74,7 @@ class Login1 extends StatelessWidget {
                       },
                       child: Text('Cadastrar'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow,
+                        backgroundColor: Color(0xFFEFEFF4),
                         foregroundColor: Colors.black,
                       ),
                     ),

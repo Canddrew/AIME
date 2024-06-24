@@ -6,7 +6,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF80EAEA),
+      backgroundColor: Color(0xFF6ECFFF),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
               },
               child: Text('Login/Cadastro'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow,
+                backgroundColor: Color(0xFFEFEFF4),
                 foregroundColor: Colors.black,
               ),
             ),
@@ -53,7 +53,7 @@ class Home extends StatelessWidget {
               },
               child: Text('Anônimo'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow,
+                backgroundColor: Color(0xFFEFEFF4),
                 foregroundColor: Colors.black,
               ),
             ),

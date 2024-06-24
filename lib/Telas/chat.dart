@@ -29,7 +29,7 @@ class _ChatState extends State<Chat> {
 
     try {
       sessionId = await assistenteWatson.criarSessao();
-      enviarMensagemInicial(); // Envia a mensagem inicial assim que a sessão é criada
+      enviarMensagemInicial();
     } catch (e) {
       print('Erro: $e');
     }
@@ -66,66 +66,95 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF80EAEA),
+      backgroundColor: Color(0xFF6ECFFF),
       appBar: AppBar(
-        title: const Text('AIME'),
-        backgroundColor: Color(0xFF80D7EA),
+        backgroundColor: Color(0xFF6ECFFF),
         foregroundColor: Colors.black87,
+        title: const Text(
+          'AIME',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24.0),
+        ),
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              reverse: true,
-              itemCount: mensagens.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Align(
-                    alignment: mensagens[index].startsWith('Você') ? Alignment.centerRight : Alignment.centerLeft,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 16),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                reverse: true,
+                itemCount: mensagens.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Align(
+                      alignment: mensagens[index].startsWith('Você')
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: mensagens[index].startsWith('Você')
+                              ? Colors.white
+                              : Color(0xFF4BA3E0),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(mensagens[index].startsWith('Você') ? 20 : 0),
+                            topRight: Radius.circular(mensagens[index].startsWith('Você') ? 0 : 20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Text(
+                          mensagens[index],
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Container(
+              color: Colors.transparent,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              margin: EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
-                        color: mensagens[index].startsWith('Você') ? Colors.yellow : Colors.white,
+                        color: Color(0xFF80EAEA),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Text(
-                        mensagens[index],
-                        style: TextStyle(color: mensagens[index].startsWith('Você') ? Colors.black : Colors.black87),
+                      child: TextField(
+                        controller: controladorMensagem,
+                        onSubmitted: (mensagem) => enviarMensagem(mensagem),
+                        decoration: const InputDecoration(
+                          hintText: 'Escreva sua mensagem para a AIME...',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-          Container(
-            color: Colors.transparent,
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: controladorMensagem,
-                    onSubmitted: (mensagem) => enviarMensagem(mensagem),
-                    decoration: const InputDecoration(
-                      hintText: 'Escreva sua mensagem para a AIME...',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: InputBorder.none,
+                  SizedBox(width: 8),
+                  Material(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                    child: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () => enviarMensagem(controladorMensagem.text),
+                      color: Colors.black,
                     ),
-                    style: TextStyle(color: Colors.black),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () => enviarMensagem(controladorMensagem.text),
-                  color: Colors.black,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
